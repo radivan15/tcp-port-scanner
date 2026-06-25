@@ -6,20 +6,9 @@ A simple CLI tool to scan TCP ports on a host. Built with pure Go — no externa
 
 ---
 
-## Features
-
-- Scan a single port on a host
-- Scan a port range (e.g. 1–1024)
-- Concurrent scanning with goroutines (much faster)
-- Control worker count (goroutines) via `-workers` flag
-- Configurable per-port timeout via `-timeout` flag (in milliseconds)
-- Output includes total open ports and scan duration
-
----
-
 ## Installation
 
-Make sure [Go](https://go.dev/dl/) 1.21 or later is installed.
+Make sure [Go](https://go.dev/dl/) 1.23 or later is installed.
 
 ```bash
 git clone https://github.com/radivan15/tcp-port-scanner.git
@@ -97,6 +86,16 @@ As an SRE, I've used tools like `nmap` regularly for network debugging and incid
 - [ ] Stage 3 — Concurrent scan with goroutines (one goroutine per port)
 - [ ] Stage 4 — Goroutine pool with channel queue + `-workers` flag
 - [ ] Stage 5 — Configurable per-port timeout via `-timeout` flag
+- [ ] Stage 6 — Pretty table output with summary (open count + scan duration)
+
+### Planned Features
+
+- Scan a single port on a host
+- Scan a port range (e.g. 1–1024)
+- Concurrent scanning with goroutines (much faster)
+- Control worker count (goroutines) via `-workers` flag
+- Configurable per-port timeout via `-timeout` flag (in milliseconds)
+- Pretty table output with open port count and scan duration
 
 ---
 
