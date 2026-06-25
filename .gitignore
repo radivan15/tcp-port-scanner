@@ -1,0 +1,17 @@
+# Binary
+port-scanner
+port-scanner.exe
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test
+*.test
+*.out
