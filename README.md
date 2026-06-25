@@ -81,7 +81,7 @@ As an SRE, I've used tools like `nmap` regularly for network debugging and incid
 
 ## Roadmap
 
-- [ ] Stage 1 — Scan a single port via CLI flag
+- [x] Stage 1 — Scan a single port via CLI flag
 - [ ] Stage 2 — Sequential port range scan
 - [ ] Stage 3 — Concurrent scan with goroutines (one goroutine per port)
 - [ ] Stage 4 — Goroutine pool with channel queue + `-workers` flag
