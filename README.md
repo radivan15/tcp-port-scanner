@@ -4,6 +4,8 @@ A simple CLI tool to scan TCP ports on a host — stdlib-first Go, external depe
 
 > Status: in progress
 
+> **Disclaimer:** only scan hosts you own or have explicit permission to scan (e.g. `localhost`, or `scanme.nmap.org` for testing). Unauthorized port scanning may be illegal.
+
 ---
 
 ## What it does
@@ -58,4 +60,4 @@ See [ROADMAP.md](ROADMAP.md) for the phase-by-phase build plan and backlog ideas
 
 ## License
 
-not available yet.
+MIT — see [LICENSE](LICENSE).
