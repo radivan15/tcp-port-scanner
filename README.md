@@ -36,19 +36,50 @@ As an SRE, I've used tools like `nmap` regularly for network debugging and incid
 
 ## Folder Structure
 
-not available yet.
+Phase 1 (current) keeps everything in a single file:
+
+```
+tcp-port-scanner/
+├── main.go
+├── go.mod
+├── README.md
+├── ROADMAP.md
+├── LICENSE
+└── .gitignore
+```
 
 ---
 
 ## Installation
 
-not available yet.
+Requires Go 1.26+ (check with `go version`).
+
+```powershell
+git clone https://github.com/radivan15/tcp-port-scanner.git
+cd tcp-port-scanner
+```
 
 ---
 
 ## How to Run
 
-not available yet.
+Currently checks one hardcoded port (`127.0.0.1:8000`); `-host` / `-port` flags come next (see [ROADMAP.md](ROADMAP.md)).
+
+```powershell
+go run .
+```
+
+Output when the port is closed:
+
+```
+gagal: dial tcp 127.0.0.1:8000: connectex: No connection could be made because the target machine actively refused it.
+```
+
+Output when something is listening on the port:
+
+```
+Open: 127.0.0.1:8000
+```
 
 ---
 
