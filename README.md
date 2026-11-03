@@ -45,7 +45,9 @@ tcp-port-scanner/
 ├── README.md
 ├── ROADMAP.md
 ├── LICENSE
-└── .gitignore
+├── .gitignore
+└── docs/
+    └── troubleshooting.md
 ```
 
 ---
@@ -63,23 +65,25 @@ cd tcp-port-scanner
 
 ## How to Run
 
-Currently checks one hardcoded port (`127.0.0.1:8000`); `-host` / `-port` flags come next (see [ROADMAP.md](ROADMAP.md)).
+Currently checks a single port (default `127.0.0.1:8000`, 2s timeout); port range scanning comes next (see [ROADMAP.md](ROADMAP.md)).
 
 ```powershell
-go run .
+go run . -host <host> -port <port>
+go run . -help    # list available flags
 ```
 
-Output when the port is closed:
+Example output (real runs on Windows 11):
 
 ```
-gagal: dial tcp 127.0.0.1:8000: connectex: No connection could be made because the target machine actively refused it.
+PS> go run . -port 8000                  # something listening
+127.0.0.1:8000 open
+PS> go run . -port 9999                  # nothing listening, host replies with RST
+127.0.0.1:9999 closed
+PS> go run . -host 192.0.2.1 -port 80    # no reply at all (RFC 5737 test IP)
+192.0.2.1:80 filtered
 ```
 
-Output when something is listening on the port:
-
-```
-Open: 127.0.0.1:8000
-```
+Hit a problem? See [docs/troubleshooting.md](docs/troubleshooting.md).
 
 ---
 

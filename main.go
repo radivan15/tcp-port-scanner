@@ -1,33 +1,44 @@
 package main
 
 import (
+	"errors"
 	"flag"
 	"fmt"
 	"net"
 	"time"
 )
 
-func main() {
-	// Definisikan flag: nama, nilai default, teks bantuan.
-	// Hasilnya POINTER (*string / *int), bukan nilai langsung.
-	host := flag.String("host", "127.0.0.1", "target host")
-	port := flag.Int("port", 8000, "target port")
+// scanPort mengecek satu port TCP dan mengembalikan statusnya.
+// Parameter: host, port, timeout. Return: string ("open" atau "closed").
+func scanPort(host string, port int, timeout time.Duration) string {
+	addr := fmt.Sprintf("%s:%d", host, port)
 
-	// baca argumen dari cli
-	flag.Parse()
-
-	// *host = ambil isi dari pointer. Sprintf menggabungkan jadi "host:port".
-	addr := fmt.Sprintf("%s:%d", *host, *port)
-
-	// DialTimeout: coba konek, menyerah setelah 2 detik.
-	// Mengembalikan dua nilai: koneksi (conn) dan error (err).
-	conn, err := net.DialTimeout("tcp", addr, 2*time.Second)
+	conn, err := net.DialTimeout("tcp", addr, timeout)
 	if err != nil {
-		fmt.Println("Failed:", err)
-		return
+
+		var netErr net.Error
+
+		// errors.As: "apakah di dalam err ada net.Error?"
+		// Kalau ada, isi ke netErr dan hasilnya true.
+		if errors.As(err, &netErr) && netErr.Timeout() {
+			return "filtered"
+		}
+		return "closed"
 	}
 
 	defer conn.Close()
 
-	fmt.Println("Open:", addr)
+	return "open"
+
+}
+
+func main() {
+	host := flag.String("host", "127.0.0.1", "target host")
+	port := flag.Int("port", 8000, "target port")
+	flag.Parse()
+
+	// Panggil fungsi. *host dan *port: ambil nilai dari pointer.
+	status := scanPort(*host, *port, 2*time.Second)
+
+	fmt.Printf("%s:%d %s\n", *host, *port, status)
 }
